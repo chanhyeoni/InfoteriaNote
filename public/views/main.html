@@ -1,0 +1,41 @@
+<div ng-if="isLoggedIn == true">
+    <nav id="topnav">
+      <ul class="topnav" id="myTopnav">
+      <div ng-controller="userController">
+        <button id='btnLogout' class='btn btn-action' ng-click="logout()">Log Out</button>
+       </div>
+      </ul>
+    </nav>
+
+	<h1>Notes</h1>
+	<table>
+	    <thead>
+	        <tr>
+	            <th>Title</th>
+	            <th>Date Created</th>
+	            <th>Version</th>
+	        </tr>
+	    </thead>
+	    <div ng-controller="homeController">
+		    <tbody>
+		      <tr ng-repeat="note in notes | orderBy:'note.dateCreated'" style="cursor:pointer">
+		        <td><a ng-click="getNote(note.noteKey)">{{ note.subject }}</a></td>
+		        <td>{{ note.dateCreated }}</td>
+		        <td>{{ note.version }}</td>
+		      </tr>
+		    </tbody>
+	    </div>	    
+	</table>    
+</div>
+
+<div ng-if="isLoggedIn == false">
+	<div ng-controller="userController">
+		<img src="/logo.png" id="logo">
+		<form novalidate class="simple-form" ng-submit="logIn()">
+			<input id='txtEmail' type ='email' placeholder='example@mail.com' ng-model='email'>
+			<input id='txtPassword' type = 'password' placeholder="password" ng-model='password'> 
+			<button id='btnLogin' class='btn btn-action'>Log in</button>
+		</form>
+		<p class='message'>Not registered? <a ng-click="register()">Sign up!</a></p>	
+	</div>
+</div>
